@@ -1,4 +1,4 @@
 build:
-	@gcc -I../include src/main.c -o bin/main
+	@gcc -Iinclude src/main.c src/helpers.c -o bin/main
 run: build
 	@./bin/main
