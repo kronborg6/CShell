@@ -33,19 +33,23 @@ int mainOLD() {
 
 bool run = true;
 
-void Commands(char *command, int count, ...) {
-	va_list args;
-	va_start(args, count);
+void Commands(char *command) {
 
-	command[strcspn(command, "\n")] = 0;
+	char **tokens;
+	tokens = splitString(command, ' ');
 
-	if (strcmp(command, "exit") == 0) {
+	for (size_t i = 0; tokens[i]; i++) {
+		tokens[i][strcspn(tokens[i], "\n")] = 0;
+	}
+
+	if (strcmp(tokens[0], "exit") == 0) {
 		printf("sorry to se you go\n");
 		run = false;
 	}
-	if (strcmp(command, "echo") == 0) {
+	if (strcmp(tokens[0], "echo") == 0) {
 		printf("hello\n");
 	}
+	free(tokens);
 }
 int main() {
 	char *str = NULL;
@@ -55,7 +59,7 @@ int main() {
 		printf("> ");
 		read = getline(&str, &len, stdin);
 		if (read != -1) {
-			Commands(str, 0);
+			Commands(str);
 		}
 	}
 	return 0;
