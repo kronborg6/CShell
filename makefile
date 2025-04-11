@@ -1,4 +1,15 @@
+CC = gcc
+CFLAGS = -Iinclude
+SRC = $(wildcard src/*.c)
+OUT = bin/main
+
+all: build
+
+bear:
+	bear -- make build
+
 build:
-	@gcc -Iinclude src/main.c src/helpers.c -o bin/main
+	@$(CC) $(CFLAGS) $(SRC) -o $(OUT)
+
 run: build
-	@./bin/main
+	@./$(OUT)
