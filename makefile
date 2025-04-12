@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Iinclude
+CFLAGS = -g -Iinclude -Wall
 SRC = $(wildcard src/*.c)
 OUT = bin/main
 

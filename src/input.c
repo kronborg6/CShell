@@ -1,14 +1,12 @@
-//
-// RUN COMMAND: gcc -g temp/input.c -o temp/run && ./temp/run
-//
-// TODO need to add a way to delete (show you delete)
-
+#include "input.h"
+#include <stdarg.h>
+#include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
 
-// Replacement for getch() in UNIX/Linux systems
-int getch() {
+static int getch() {
 	struct termios oldt, newt;
 	int ch;
 	tcgetattr(STDIN_FILENO, &oldt);
@@ -20,7 +18,7 @@ int getch() {
 	return ch;
 }
 
-void redraw(const char *buffer, int length, int index) {
+static void redraw(const char *buffer, int length, int index) {
 	// Go to line start
 	printf("\r");
 	// Print buffer
@@ -33,7 +31,6 @@ void redraw(const char *buffer, int length, int index) {
 	}
 	fflush(stdout);
 }
-
 char *input() {
 	static char buffer[1024];
 	int buf_index = 0;
@@ -92,12 +89,4 @@ char *input() {
 			}
 		}
 	}
-}
-
-int main(int argc, char *argv[]) {
-	while (1) {
-		char *in = input();
-		printf("%s\n", in);
-	}
-	return 0;
 }
