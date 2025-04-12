@@ -1,6 +1,7 @@
 #include "helpers.h"
 #include "input.h"
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,9 +27,17 @@ void Commands(char *command) {
 	free(tokens);
 }
 int main() {
+	size_t len;
+	/* char *old = NULL; */
+	char old[1024];
 	while (run) {
 		char *in = input();
-		Commands(in);
+		len = sizeof(in);
+		memcpy(old, in, len);
+		old[len - 1] = '\0';
+		char *in2 = input();
+		printf("1: %s 2: %s\n", old, in2);
+		/* Commands(in); */
 	}
 	return 0;
 }
