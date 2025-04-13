@@ -5,6 +5,7 @@
 #include <string.h>
 
 char **splitString(char *a_str, const char a_delim) {
+
 	char **result = 0;
 	size_t count = 0;
 	char *tmp = a_str;

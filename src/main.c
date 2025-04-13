@@ -27,17 +27,18 @@ void Commands(char *command) {
 	free(tokens);
 }
 int main() {
-	size_t len;
+	/* size_t len; */
 	/* char *old = NULL; */
-	char old[1024];
+	/* char old[1024]; */
 	while (run) {
+		printf(">");
 		char *in = input();
-		len = sizeof(in);
-		memcpy(old, in, len);
-		old[len - 1] = '\0';
-		char *in2 = input();
-		printf("1: %s 2: %s\n", old, in2);
-		/* Commands(in); */
+		/* len = sizeof(in); */
+		/* memcpy(old, in, len); */
+		/* old[len - 1] = '\0'; */
+		/* char *in2 = input(); */
+		/* printf("1: %s 2: %s\n", old, in2); */
+		Commands(in);
 	}
 	return 0;
 }

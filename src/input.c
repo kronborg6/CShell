@@ -21,6 +21,7 @@ static int getch() {
 static void redraw(const char *buffer, int length, int index) {
 	// Go to line start
 	printf("\r");
+	printf(">");
 	// Print buffer
 	fwrite(buffer, 1, length, stdout);
 	// Clear to end of line (optional)
