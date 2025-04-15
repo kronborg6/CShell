@@ -3,9 +3,29 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <termios.h>
 #include <unistd.h>
 
+char **history = NULL;
+
+/* foo = (char **)malloc(5 * sizeof(char *)); */
+
+void initHistory(int count) {
+	history = (char **)malloc(count * sizeof(char *));
+	if (history == NULL) {
+		fprintf(stderr, "failed to init history\n");
+		exit(EXIT_FAILURE);
+	}
+	for (int i = 0; i < count; i++) {
+		history[i] = NULL;
+	}
+}
+
+void freeHisoryKronborg() {
+	free(history);
+	history = NULL;
+}
 static int getch() {
 	struct termios oldt, newt;
 	int ch;

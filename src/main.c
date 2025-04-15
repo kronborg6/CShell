@@ -30,6 +30,7 @@ int main() {
 	/* size_t len; */
 	/* char *old = NULL; */
 	/* char old[1024]; */
+	initHistory(10);
 	while (run) {
 		printf(">");
 		char *in = input();
@@ -40,5 +41,7 @@ int main() {
 		/* printf("1: %s 2: %s\n", old, in2); */
 		Commands(in);
 	}
+	freeHisoryKronborg();
+	printf("freed\n");
 	return 0;
 }
