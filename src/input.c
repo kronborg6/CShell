@@ -4,14 +4,18 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <termios.h>
 #include <unistd.h>
 
 char **history = NULL;
+int maxleng = 0;
+int historyLen = 0;
 
 /* foo = (char **)malloc(5 * sizeof(char *)); */
 
 void initHistory(int count) {
+	maxleng = count;
 	history = (char **)malloc(count * sizeof(char *));
 	if (history == NULL) {
 		fprintf(stderr, "failed to init history\n");
@@ -26,6 +30,7 @@ void freeHisoryKronborg() {
 	free(history);
 	history = NULL;
 }
+
 static int getch() {
 	struct termios oldt, newt;
 	int ch;
@@ -51,6 +56,20 @@ static void redraw(const char *buffer, int length, int index) {
 		printf("\b");
 	}
 	fflush(stdout);
+}
+
+static void appendHistory(char *string) {
+	size_t len;
+	len = sizeof(string);
+	if (maxleng >= historyLen + 1) {
+
+		if (historyLen == 0) {
+			memcpy(history[0], string, len);
+		} else {
+			memcpy(history[historyLen + 1], string, len);
+		}
+		historyLen++;
+	}
 }
 char *input() {
 	static char buffer[1024];
@@ -88,6 +107,7 @@ char *input() {
 		} else if (ch == '\n') { // Enter key
 			buffer[buf_index] = '\0';
 			printf("\nYou typed: %s\n", buffer);
+			appendHistory(buffer);
 			return buffer;
 		} else if (ch == 127) { // Backspace
 			if (cursor_index > 0) {
