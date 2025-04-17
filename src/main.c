@@ -30,16 +30,18 @@ int main() {
 	/* size_t len; */
 	/* char *old = NULL; */
 	/* char old[1024]; */
-	initHistory(10);
+	initHistory(4);
 	while (run) {
-		printf(">");
+		/* printf(">"); */
 		char *in = input();
 		/* len = sizeof(in); */
 		/* memcpy(old, in, len); */
 		/* old[len - 1] = '\0'; */
 		/* char *in2 = input(); */
 		/* printf("1: %s 2: %s\n", old, in2); */
-		Commands(in);
+		if (in[0] != '\0') {
+			Commands(in);
+		}
 	}
 	freeHisoryKronborg();
 	printf("freed\n");

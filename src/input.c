@@ -1,5 +1,4 @@
 #include "input.h"
-#include <stdarg.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -63,18 +62,26 @@ static void appendHistory(char *string) {
 	len = sizeof(string);
 	if (maxleng >= historyLen + 1) {
 
-		if (historyLen == 0) {
-			memcpy(history[0], string, len);
-		} else {
-			memcpy(history[historyLen + 1], string, len);
-		}
+		history[historyLen] = (char *)malloc(len);
+		memcpy(history[historyLen], string, len);
 		historyLen++;
+	} else {
+		int addSize = 10;
+		history = (char **)realloc(history, (maxleng + addSize) * sizeof(char *));
+		for (int i = maxleng + 1; maxleng + addSize > i; i++) {
+			history[i] = NULL;
+		}
+		history[maxleng] = (char *)malloc(len);
+		memcpy(history[maxleng], string, len);
+		historyLen++;
+		maxleng += addSize;
 	}
 }
 char *input() {
 	static char buffer[1024];
 	int buf_index = 0;
 	int cursor_index = 0;
+	int hisory_index = 0;
 
 	while (1) {
 		int ch = getch();
@@ -99,8 +106,20 @@ char *input() {
 					}
 					break;
 				case 65:
+					if (hisory_index < historyLen) {
+						int foo = sizeof(history[hisory_index]);
+						for (int i = 0; i < sizeof(history[hisory_index]); i++) {
+
+							buffer[i] = history[hisory_index][i];
+						}
+						buf_index = sizeof(history[hisory_index]);
+						cursor_index = foo;
+						redraw(buffer, buf_index, cursor_index);
+					}
+					hisory_index++;
 					break;
 				case 66:
+					printf("down\n");
 					break;
 				}
 			}
