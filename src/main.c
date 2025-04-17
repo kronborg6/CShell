@@ -32,7 +32,7 @@ int main() {
 	/* char old[1024]; */
 	initHistory(4);
 	while (run) {
-		/* printf(">"); */
+		printf(">");
 		char *in = input();
 		/* len = sizeof(in); */
 		/* memcpy(old, in, len); */
