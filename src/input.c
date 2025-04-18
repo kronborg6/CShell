@@ -10,6 +10,7 @@
 char **history = NULL;
 int maxleng = 0;
 int historyLen = 0;
+int max_history_item_len = 0;
 
 /* foo = (char **)malloc(5 * sizeof(char *)); */
 
@@ -60,6 +61,9 @@ static void redraw(const char *buffer, int length, int index) {
 static void appendHistory(char *string) {
 	size_t len;
 	len = strlen(string);
+	if (len > max_history_item_len) {
+		max_history_item_len = len;
+	}
 	if (maxleng >= historyLen + 1) {
 
 		history[historyLen] = (char *)malloc(len);
@@ -122,6 +126,16 @@ char *input() {
 					break;
 				case 66:
 					if (hisory_index > 0) {
+						if (hisory_index - 1 <= 0) {
+							for (int i = 0; i < max_history_item_len; i++) {
+								buffer[i] = '\0';
+							}
+							buf_index = 0;
+							cursor_index = 0;
+							redraw(buffer, buf_index, cursor_index);
+							hisory_index = 0;
+							break;
+						}
 						int foo = strlen(history[hisory_index - 1]);
 						for (int i = 0; i < strlen(history[hisory_index - 1]); i++) {
 
