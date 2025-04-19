@@ -137,9 +137,12 @@ char *input() {
 							break;
 						}
 						int foo = strlen(history[hisory_index - 1]);
-						for (int i = 0; i < strlen(history[hisory_index - 1]); i++) {
+						for (int i = 0; i < strlen(history[hisory_index - 1]) - 1; i++) {
 
 							buffer[i] = history[hisory_index - 1][i];
+						}
+						for (int i = foo + 1; i < 1024; i++) {
+							buffer[i] = '\0';
 						}
 						/* buf_index = foo - 3; */
 						/* cursor_index = foo - 3; */
