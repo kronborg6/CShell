@@ -59,6 +59,10 @@ static void redraw(const char *buffer, int length, int index) {
 static void appendHistory(char *string) {
 	size_t len;
 	len = strlen(string);
+
+	if (historyLen > 0 && strcmp(string, history[historyLen - 1]) == 0) {
+		return;
+	}
 	if (len > max_history_item_len) {
 		max_history_item_len = len;
 	}
@@ -105,7 +109,7 @@ char *input() {
 						fflush(stdout);
 					}
 					break;
-				case 65: // remove old history when selecetd
+				case 65:
 					if (hisory_index < historyLen) {
 						int foo = strlen(history[historyLen - hisory_index - 1]);
 						for (int i = 0; i < strlen(history[historyLen - hisory_index - 1]); i++) {
@@ -118,7 +122,7 @@ char *input() {
 						hisory_index++;
 					}
 					break;
-				case 66:
+				case 66: // som bug here
 					if (hisory_index - 1 <= 0) {
 						for (int i = 0; i < max_history_item_len; i++) {
 							buffer[i] = '\0';
@@ -130,12 +134,13 @@ char *input() {
 						break;
 					} else if (hisory_index > 0) {
 
-						int foo = strlen(history[hisory_index - 1]);
-						for (int i = 0; i < strlen(history[hisory_index - 1]) - 1; i++) {
+						/* int temp = hisory_index - 1; */
+						int foo = strlen(history[historyLen - hisory_index + 1]);
+						for (int i = 0; i < strlen(history[historyLen - hisory_index + 1]); i++) {
 
-							buffer[i] = history[hisory_index - 1][i];
+							buffer[i] = history[historyLen - hisory_index + 1][i];
 						}
-						for (int i = foo + 1; i < 1024; i++) {
+						for (int i = foo; i < 1024; i++) {
 							buffer[i] = '\0';
 						}
 						buf_index = foo;

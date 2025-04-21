@@ -3,4 +3,4 @@ bin/
 compile_commands.json
 compile_flags.txt
 temp/run
-./.temp
+.temp
