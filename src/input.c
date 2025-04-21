@@ -12,8 +12,6 @@ int maxleng = 0;
 int historyLen = 0;
 int max_history_item_len = 0;
 
-/* foo = (char **)malloc(5 * sizeof(char *)); */
-
 void initHistory(int count) {
 	maxleng = count;
 	history = (char **)malloc(count * sizeof(char *));
@@ -67,8 +65,6 @@ static void appendHistory(char *string) {
 	if (maxleng >= historyLen + 1) {
 
 		history[historyLen] = strdup(string);
-		/* history[historyLen] = (char *)malloc(len); */
-		/* memcpy(history[historyLen], string, len); */
 		historyLen++;
 	} else {
 		int addSize = 10;
@@ -77,8 +73,6 @@ static void appendHistory(char *string) {
 			history[i] = NULL;
 		}
 		history[maxleng] = strdup(string);
-		/* history[maxleng] = (char *)malloc(len); */
-		/* memcpy(history[maxleng], string, len); */
 		historyLen++;
 		maxleng += addSize;
 	}
@@ -111,18 +105,13 @@ char *input() {
 						fflush(stdout);
 					}
 					break;
-				case 65: // need to go from new to old not old to new
+				case 65: // remove old history when selecetd
 					if (hisory_index < historyLen) {
 						int foo = strlen(history[historyLen - hisory_index - 1]);
 						for (int i = 0; i < strlen(history[historyLen - hisory_index - 1]); i++) {
 
 							buffer[i] = history[historyLen - hisory_index - 1][i];
 						}
-						/* for (int i = foo; i < 1024; i++) { */
-						/* 	buffer[i] = '\0'; */
-						/* } */
-						/* buf_index = foo - 3; */
-						/* cursor_index = foo - 3; */
 						buf_index = foo;
 						cursor_index = foo;
 						redraw(buffer, buf_index, cursor_index);
@@ -149,8 +138,6 @@ char *input() {
 						for (int i = foo + 1; i < 1024; i++) {
 							buffer[i] = '\0';
 						}
-						/* buf_index = foo - 3; */
-						/* cursor_index = foo - 3; */
 						buf_index = foo;
 						cursor_index = foo;
 						redraw(buffer, buf_index, cursor_index);
