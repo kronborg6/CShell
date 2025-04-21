@@ -40,6 +40,6 @@ int main() {
 			Commands(in);
 		}
 	}
-	freeHisoryKronborg();
+	deinitHistory();
 	return 0;
 }

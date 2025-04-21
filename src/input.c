@@ -24,7 +24,10 @@ void initHistory(int count) {
 	}
 }
 
-void freeHisoryKronborg() {
+void deinitHistory() {
+	for (int i = 0; i < historyLen; i++) {
+		free(history[i]);
+	}
 	free(history);
 	history = NULL;
 }
