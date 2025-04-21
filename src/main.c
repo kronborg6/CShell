@@ -22,28 +22,24 @@ void Commands(char *command) {
 		run = false;
 	}
 	if (strcmp(tokens[0], "echo") == 0) {
-		printf("hello\n");
+		for (int i = 1; tokens[i]; i++) {
+			printf("%s", tokens[i]);
+			printf(" ");
+		}
+		printf("\n");
+		/* printf("%s\n", tokens[1]); */
 	}
 	free(tokens);
 }
 int main() {
-	/* size_t len; */
-	/* char *old = NULL; */
-	/* char old[1024]; */
 	initHistory(4);
 	while (run) {
 		printf(">");
 		char *in = input();
-		/* len = sizeof(in); */
-		/* memcpy(old, in, len); */
-		/* old[len - 1] = '\0'; */
-		/* char *in2 = input(); */
-		/* printf("1: %s 2: %s\n", old, in2); */
 		if (in[0] != '\0') {
 			Commands(in);
 		}
 	}
 	freeHisoryKronborg();
-	printf("freed\n");
 	return 0;
 }

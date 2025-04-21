@@ -148,7 +148,8 @@ char *input() {
 			}
 		} else if (ch == '\n') { // Enter key
 			buffer[buf_index] = '\0';
-			printf("\nYou typed: %s\n", buffer);
+			printf("\n");
+			/* printf("\nYou typed: %s\n", buffer); */
 			appendHistory(buffer);
 			return buffer;
 		} else if (ch == 127) { // Backspace
