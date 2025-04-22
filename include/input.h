@@ -4,7 +4,7 @@
 /* int getch(); */
 /* void redraw(const char *buffer, int length, int index); */
 char *input();
-void deinitHistory();
-void initHistory(int count);
+/* void deinitHistory(); */
+/* void initHistory(int count); */
 
 #endif // INPUT_H

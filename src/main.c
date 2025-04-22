@@ -1,4 +1,5 @@
 #include "helpers.h"
+#include "history.h"
 #include "input.h"
 #include <stdbool.h>
 #include <stddef.h>
