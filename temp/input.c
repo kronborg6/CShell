@@ -6,11 +6,19 @@
 #include <stdio.h>
 
 int main() {
-	FILE *fp = fopen("./.temp", "ab+");
+	FILE *fp = fopen("./.temp", "rb+");
 	/* FILE *fp = fopen("./.temp", "w"); */
 
-	fprintf(fp, "\nkronborg");
+	/* fprintf(fp, "\nkronborg"); */
 	/* /1* printf("hello\n"); *1/ */
+	char online[200];
+	while (1) {
+		fscanf(fp, "%s", online);
+		clearerr(fp);
+		fseek(fp, 0, SEEK_SET);
+
+		printf(": %s\n", online);
+	}
 	fclose(fp);
 	/* printf("home dir: %s\n", home_path); */
 	/* int i = 0; */
