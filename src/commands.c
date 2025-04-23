@@ -19,14 +19,15 @@ void Commands(char *command) {
 	if (strcmp(tokens[0], "exit") == 0) {
 		printf("sorry to se you go\n");
 		run = false;
-	}
-	if (strcmp(tokens[0], "echo") == 0) {
+	} else if (strcmp(tokens[0], "echo") == 0) {
 		for (int i = 1; tokens[i]; i++) {
 			printf("%s", tokens[i]);
 			printf(" ");
 		}
 		printf("\n");
 		/* printf("%s\n", tokens[1]); */
+	} else {
+		printf("cShell: 404\ncommand: %s\n", command);
 	}
 	free(tokens);
 }
