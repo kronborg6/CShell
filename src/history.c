@@ -72,16 +72,19 @@ void appendHistory(char *string) {
 
 void createFileIfNotExist() {
 	FILE *fp = fopen("./.temp", "rb+");
-	if (fp == NULL) {
-		freopen("./.temp", "wb", fp);
+	if (!fp) {
+		fp = fopen("./.temp", "wb");
+		if (!fp) {
+			perror("opening .temp for creation");
+			return;
+		}
 	}
-	free(fp);
+	fclose(fp);
 }
 // read command in to history
 void loadHistoryFromFile() {
 	FILE *fp = fopen("./.temp", "rb+");
-	/* fread */
-	free(fp);
+	fclose(fp);
 }
 
 // FORMAT ^SS:mm:HH:DD:MM:YYYY;LEN;COMMAND^
