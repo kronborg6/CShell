@@ -50,18 +50,9 @@ static void redraw(const char *buffer, int length, int index) {
 	int start = 1;
 	int col = 0;
 
-	// Go to line start
-	printf("\033[?25l"); // hide cursor while redrawing
-	printf("\033[0J");
 	printf("\r");
-	if (col == 0) {
-		printf(">");
-	}
-	if (length > 10) {
-		col++;
-		printf("\n");
-	}
-	printf("\033[K");
+	printf(">");
+
 	// Print buffer
 	fwrite(buffer, 1, length, stdout);
 	// Clear to end of line (optional)
