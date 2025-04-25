@@ -21,7 +21,7 @@ void Commands(char *command) {
 
 	if (id == 0) {
 		if (strcmp(tokens[0], "exit") == 0) {
-			printf("sorry to se you go\n");
+			/* printf("sorry to se you go\n"); */
 			run = false;
 		} else if (strcmp(tokens[0], "echo") == 0) {
 			for (int i = 1; tokens[i]; i++) {
@@ -35,7 +35,13 @@ void Commands(char *command) {
 		}
 		free(tokens);
 		exit(EXIT_SUCCESS);
+	} else if (id < 0) {
+		printf("failed to fork");
 	} else if (id > 0) {
 		wait(NULL);
+		if (strcmp(tokens[0], "exit") == 0) {
+			printf("sorry to se you go\n");
+			run = false;
+		}
 	}
 }
