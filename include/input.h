@@ -3,7 +3,7 @@
 
 /* int getch(); */
 /* void redraw(const char *buffer, int length, int index); */
-char *input();
+char *input(char *system_path);
 /* void deinitHistory(); */
 /* void initHistory(int count); */
 

@@ -45,12 +45,13 @@ int get_terminal_width() {
 /* 	fflush(stdout); */
 /* } */
 
-static void redraw(const char *buffer, int length, int index) {
-	int ter_max_leng = get_terminal_width();
-	int start = 1;
-	int col = 0;
+static void redraw(const char *buffer, int length, int index, char *system_path) {
+	/* int ter_max_leng = get_terminal_width(); */
+	/* int start = 1; */
+	/* int col = 0; */
 
 	printf("\r");
+	printf("%s", system_path);
 	printf(">");
 
 	// Print buffer
@@ -64,11 +65,13 @@ static void redraw(const char *buffer, int length, int index) {
 	fflush(stdout);
 }
 
-char *input() {
+char *input(char *s_path) {
 	static char buffer[1024];
 	int buf_index = 0;
 	int cursor_index = 0;
 	int hisory_index = 0;
+
+	/* int path_len = strlen(s_path); */
 
 	while (1) {
 		int ch = getch();
@@ -101,7 +104,7 @@ char *input() {
 						}
 						buf_index = foo;
 						cursor_index = foo;
-						redraw(buffer, buf_index, cursor_index);
+						redraw(buffer, buf_index, cursor_index, s_path);
 						hisory_index++;
 					}
 					break;
@@ -112,7 +115,7 @@ char *input() {
 						}
 						buf_index = 0;
 						cursor_index = 0;
-						redraw(buffer, buf_index, cursor_index);
+						redraw(buffer, buf_index, cursor_index, s_path);
 						hisory_index = 0;
 						break;
 					} else if (hisory_index > 0) {
@@ -128,7 +131,7 @@ char *input() {
 						}
 						buf_index = foo;
 						cursor_index = foo;
-						redraw(buffer, buf_index, cursor_index);
+						redraw(buffer, buf_index, cursor_index, s_path);
 						hisory_index--;
 					}
 					break;
@@ -147,7 +150,7 @@ char *input() {
 				}
 				buf_index--;
 				cursor_index--;
-				redraw(buffer, buf_index, cursor_index);
+				redraw(buffer, buf_index, cursor_index, s_path);
 			}
 		} else { // Normal characters
 			if (buf_index < sizeof(buffer) - 1) {
@@ -157,7 +160,7 @@ char *input() {
 				buffer[cursor_index] = ch;
 				buf_index++;
 				cursor_index++;
-				redraw(buffer, buf_index, cursor_index);
+				redraw(buffer, buf_index, cursor_index, s_path);
 			}
 		}
 	}
