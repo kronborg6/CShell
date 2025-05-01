@@ -27,7 +27,7 @@ int change_system_path(char *new_system_path) {
 			}
 			char *out = malloc(system_path_max_len + 1);
 			if (!out)
-				return NULL;
+				return 2;
 
 			// 4) Copy pieces in
 			char *p = out;
