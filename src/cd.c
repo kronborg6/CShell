@@ -62,7 +62,8 @@ int change_system_path(char *new_system_path) {
 		}
 		return 0;
 	}
-	strncpy(system_path, "/home/kronborg", system_path_max_len);
+	char *home_dir = getenv("HOME");
+	strncpy(system_path, home_dir, system_path_max_len);
 	system_path[PATH_MAX - 1] = '\0';
 	return 0;
 }
