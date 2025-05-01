@@ -14,9 +14,9 @@ void Commands(char *command) {
 	char **tokens;
 	tokens = splitString(command, ' ');
 
-	for (size_t i = 0; tokens[i]; i++) {
-		tokens[i][strcspn(tokens[i], "\n")] = 0;
-	}
+	/* for (size_t i = 0; tokens[i]; i++) { */
+	/* 	tokens[i][strcspn(tokens[i], "\n")] = 0; */
+	/* } */
 
 	int id = fork();
 
@@ -34,7 +34,6 @@ void Commands(char *command) {
 		} else {
 			/* printf("cShell: 404\ncommand: %s\n", command); */
 		}
-		free(tokens);
 		exit(EXIT_SUCCESS);
 	} else if (id < 0) {
 		printf("failed to fork");
@@ -48,5 +47,10 @@ void Commands(char *command) {
 		} else if (strcmp(tokens[0], "pwd") == 0) {
 			printf("%s\n", system_path);
 		}
+
+		for (size_t i = 0; tokens[i] != NULL; ++i) {
+			free(tokens[i]);
+		}
+		free(tokens);
 	}
 }

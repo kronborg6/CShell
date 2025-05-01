@@ -1,10 +1,11 @@
 #include "helpers.h"
 #include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-char **splitString(char *a_str, const char a_delim) {
+char **splitStringOLD(char *a_str, const char a_delim) {
 
 	char **result = 0;
 	size_t count = 0;
@@ -45,5 +46,42 @@ char **splitString(char *a_str, const char a_delim) {
 		*(result + idx) = 0;
 	}
 
+	return result;
+}
+char **splitString(char *a_str, const char a_delim) {
+	char **result = NULL;
+	size_t count = 0;
+	bool in_token = false;
+	char delim[2] = {a_delim, '\0'};
+
+	/* First pass: count how many tokens strtok will return */
+	for (char *p = a_str; *p; ++p) {
+		if (*p != a_delim) {
+			if (!in_token) {
+				in_token = true;
+				++count;
+			}
+		} else {
+			in_token = false;
+		}
+	}
+
+	/* Allocate pointers: count tokens + 1 for the NULL terminator */
+	result = malloc((count + 1) * sizeof *result);
+	if (!result)
+		return NULL;
+
+	/* Second pass: actually split and strdup each token */
+	size_t idx = 0;
+	char *token = strtok(a_str, delim);
+	while (token) {
+		assert(idx < count);
+		result[idx++] = strdup(token);
+		token = strtok(NULL, delim);
+	}
+	assert(idx == count);
+
+	/* NULL-terminate the array */
+	result[idx] = NULL;
 	return result;
 }

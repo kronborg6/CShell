@@ -1,8 +1,11 @@
 #include "cd.h"
 #include "cShell.h"
+#include "helpers.h"
 #include <dirent.h>
+#include <iso646.h>
 #include <linux/limits.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int change_system_path(char *new_system_path) {
@@ -16,6 +19,30 @@ int change_system_path(char *new_system_path) {
 				printf("path does not exites: %s\n", new_system_path);
 			}
 		} else if (new_system_path[0] == '.' && new_system_path[1] == '.') {
+			char **slash;
+			slash = splitString(system_path, '/');
+			int len = 0;
+			while (slash[len] != NULL) {
+				len++;
+			}
+			char *out = malloc(system_path_max_len + 1);
+			if (!out)
+				return NULL;
+
+			// 4) Copy pieces in
+			char *p = out;
+			for (size_t i = 0; i < len - 1; ++i) {
+				*p++ = '/';
+				size_t len = strlen(slash[i]);
+				memcpy(p, slash[i], len);
+				p += len;
+			}
+			*p = '\0';
+			for (size_t i = 0; slash[i] != NULL; ++i) {
+				free(slash[i]);
+			}
+			free(slash);
+			system_path = out;
 
 		} else {
 			char original[system_path_max_len];
