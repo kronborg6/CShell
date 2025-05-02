@@ -19,3 +19,7 @@
 ## Rules for this project
 
 try to liment chatgpt to compiler errors
+
+## try it
+
+only option at the moent is building it from source am developing on wsl debian and only test it on that
