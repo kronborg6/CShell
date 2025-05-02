@@ -18,7 +18,7 @@
 
 ## Try it
 
-only option at the moent is building it from source am developing on wsl debian and only test it on that
+only option at the moment is building it from source am developing on wsl debian and only test it on that
 
 ## Rules for this project
 
