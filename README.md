@@ -1,4 +1,4 @@
-# CShell
+<b># seashell </b>
 
 ## TODO
 
@@ -16,10 +16,10 @@
 
 <b> i am replacinge $HOME for me that is /home/kronborg with ~ </b>
 
+## Try it
+
+only option at the moent is building it from source am developing on wsl debian and only test it on that
+
 ## Rules for this project
 
 try to liment chatgpt to compiler errors
-
-## try it
-
-only option at the moent is building it from source am developing on wsl debian and only test it on that
